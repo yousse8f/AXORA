@@ -1,180 +1,106 @@
 'use client';
 
-interface DemoCard {
+import Image, { type StaticImageData } from 'next/image';
+import Link from 'next/link';
+
+import home1 from '../../public/images/home1.png';
+import home2 from '../../public/images/home2.png';
+import home3 from '../../public/images/home3.png';
+import home4 from '../../public/images/home4.png';
+
+type DemoCard = {
   id: string;
   title: string;
   category: string;
-  image: string;
-  bgColor: string;
-  textColor: string;
-}
+  image: StaticImageData;
+  href: string;
+  priority?: boolean;
+};
 
 const demoCards: DemoCard[] = [
   {
-    id: 'showcase',
-    title: 'Showcase your app in one place',
-    category: 'App Showcase',
-    image: '/images/demo-showcase.png',
-    bgColor: 'bg-gradient-to-br from-purple-600 to-blue-600',
-    textColor: 'text-white'
+    id: 'launchly-home',
+    title: 'Showcase your App in one place',
+    category: 'SINGLE IMAGE',
+    image: home1,
+    href: 'https://launchly-corporate.vercel.app/home1',
+    priority: true
   },
   {
-    id: 'mobile',
-    title: 'Get the new app for iPhone & Android',
-    category: 'Mobile App',
-    image: '/images/demo-mobile.png',
-    bgColor: 'bg-gradient-to-br from-cyan-500 to-blue-500',
-    textColor: 'text-white'
+    id: 'launchly-mobile',
+    title: 'Get the new App for iPhone & Android',
+    category: 'IMAGE SLIDESHOW',
+    image: home2,
+    href: 'https://launchly-corporate.vercel.app/home2'
   },
   {
-    id: 'business',
+    id: 'launchly-youtube',
     title: 'Made for better',
-    category: 'Business',
-    image: '/images/demo-business.png',
-    bgColor: 'bg-gradient-to-br from-red-600 to-pink-600',
-    textColor: 'text-white'
+    category: 'YOUTUBE BACKGROUND',
+    image: home3,
+    href: 'https://launchly-corporate.vercel.app/home3'
   },
   {
-    id: 'single-image',
-    title: 'SINGLE IMAGE',
-    category: 'Layout Type',
-    image: '/images/demo-single-image.png',
-    bgColor: 'bg-white',
-    textColor: 'text-gray-800'
-  },
-  {
-    id: 'slideshow',
-    title: 'IMAGE SLIDESHOW',
-    category: 'Layout Type',
-    image: '/images/demo-slideshow.png',
-    bgColor: 'bg-white',
-    textColor: 'text-gray-800'
-  },
-  {
-    id: 'youtube',
-    title: 'YOUTUBE BACKGROUND',
-    category: 'Layout Type',
-    image: '/images/demo-youtube.png',
-    bgColor: 'bg-white',
-    textColor: 'text-gray-800'
-  },
-  {
-    id: 'blog',
-    title: 'BLOG',
-    category: 'Page Type',
-    image: '/images/demo-blog.png',
-    bgColor: 'bg-gray-900',
-    textColor: 'text-white'
-  },
-  {
-    id: 'contact',
-    title: 'CONTACT',
-    category: 'Page Type',
-    image: '/images/demo-contact.png',
-    bgColor: 'bg-gray-900',
-    textColor: 'text-white'
-  },
-  {
-    id: 'worker',
-    title: 'WORKER',
-    category: 'Page Type',
-    image: '/images/demo-worker.png',
-    bgColor: 'bg-gray-900',
-    textColor: 'text-white'
+    id: 'launchly-brand',
+    title: 'Made for better',
+    category: 'YOUTUBE BACKGROUND',
+    image: home4,
+    href: 'https://launchly-corporate.vercel.app/home-brand'
   }
 ];
 
 export default function Demos() {
   return (
-    <section className="py-20 bg-gray-50">
-      <div className="container mx-auto px-6">
-        {/* Section Header */}
+    <section
+      id="demos-section"
+      className="relative py-20 bg-gradient-to-br from-[#f4f7ff] via-[#f2ecff] to-[#e7f3ff] overflow-hidden"
+    >
+      {/* Circular Patterns Background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="circular-patterns"></div>
+      </div>
+      <div className="relative container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-3">
             Select Your Favorite Demo
           </h2>
-          <p className="text-gray-600 text-lg">
+          <p className="text-gray-500 text-lg">
             Fully Responsive • 24/7 Support • Well Documented
           </p>
         </div>
 
-        {/* Demo Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          {demoCards.map((demo, index) => (
-            <div
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+          {demoCards.map((demo) => (
+            <Link
               key={demo.id}
-              className="group cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+              href={demo.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-[0_20px_60px_rgba(15,23,42,0.06)] transition-transform duration-300 sm:transition-all sm:duration-500 sm:hover:-translate-y-2 sm:hover:shadow-[0_40px_120px_rgba(15,23,42,0.12)]"
             >
-              {/* Demo Card */}
-              <div className="relative overflow-hidden rounded-2xl shadow-lg">
-                {/* Top Section - Colored Background */}
-                <div className={`${demo.bgColor} p-8 h-64 flex flex-col justify-center items-center relative`}>
-                  {/* Background Pattern for white cards */}
-                  {demo.bgColor === 'bg-white' && (
-                    <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-gray-100"></div>
-                  )}
-                  
-                  {/* Content */}
-                  <div className="relative z-10 text-center">
-                    {index < 3 ? (
-                      // Top row - App showcase cards with phone mockups
-                      <div className="flex justify-center space-x-2 mb-4">
-                        <div className="w-12 h-20 bg-white/20 rounded-lg flex items-center justify-center">
-                          <div className="w-8 h-14 bg-white/40 rounded"></div>
-                        </div>
-                        <div className="w-12 h-20 bg-white/20 rounded-lg flex items-center justify-center">
-                          <div className="w-8 h-14 bg-white/40 rounded"></div>
-                        </div>
-                      </div>
-                    ) : index < 6 ? (
-                      // Middle row - Layout type cards with desktop mockups
-                      <div className="mb-4">
-                        <div className="w-24 h-16 bg-gray-200 rounded-lg mx-auto flex items-center justify-center">
-                          <div className="w-20 h-12 bg-gray-300 rounded"></div>
-                        </div>
-                      </div>
-                    ) : (
-                      // Bottom row - Page type cards with full page mockups
-                      <div className="mb-4">
-                        <div className="w-20 h-24 bg-white/20 rounded-lg mx-auto flex flex-col items-center justify-center space-y-1">
-                          <div className="w-16 h-2 bg-white/40 rounded"></div>
-                          <div className="w-12 h-2 bg-white/40 rounded"></div>
-                          <div className="w-14 h-2 bg-white/40 rounded"></div>
-                          <div className="w-16 h-8 bg-white/40 rounded"></div>
-                        </div>
-                      </div>
-                    )}
-                    
-                    <h3 className={`${demo.textColor} font-bold text-lg leading-tight`}>
-                      {demo.title}
-                    </h3>
-                  </div>
-
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-
-                {/* Bottom Section - White Background */}
-                <div className="bg-white p-6 text-center">
-                  <p className="text-gray-600 font-medium text-sm uppercase tracking-wide">
-                    {demo.category}
-                  </p>
-                  
-                  {/* Preview Button */}
-                  <button className="mt-4 bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-full text-sm font-semibold transition-colors duration-200 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0">
-                    Preview Demo
-                  </button>
+              <div className="relative h-[420px] w-full overflow-hidden rounded-[32px] bg-gray-50 shadow-[0_25px_60px_rgba(15,23,42,0.08)]">
+                <div className="h-full overflow-y-auto px-6 py-8">
+                  <Image
+                    src={demo.image}
+                    alt={demo.title}
+                    className="w-full h-auto rounded-[24px] object-top"
+                    sizes="(min-width: 1024px) 360px, (min-width: 768px) 50vw, 90vw"
+                    priority={demo.priority}
+                    loading={demo.priority ? undefined : 'lazy'}
+                    quality={80}
+                  />
                 </div>
               </div>
-            </div>
+              <div className="px-8 py-10 text-center">
+                <h3 className="text-xl font-semibold text-gray-800">
+                  {demo.title}
+                </h3>
+                <span className="mt-6 block text-xs font-semibold uppercase tracking-[0.35em] text-gray-400">
+                  {demo.category}
+                </span>
+              </div>
+            </Link>
           ))}
-        </div>
-
-        {/* Bottom CTA */}
-        <div className="text-center mt-16">
-          <button className="bg-purple-600 hover:bg-purple-700 text-white px-12 py-4 rounded-full text-lg font-semibold transition-all duration-200 hover:shadow-lg transform hover:scale-105">
-            View All Demos
-          </button>
         </div>
       </div>
     </section>
